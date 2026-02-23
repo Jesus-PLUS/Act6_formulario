@@ -11,11 +11,34 @@ var formulario = document.querySelector("form"),
 
 // Validar Nombre
 function validarNombre(e){
-    if(nombre.value.trim() === ""){
+
+    var nombreLimpio = nombre.value.trim();
+    var soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+
+    if(nombreLimpio === ""){
         error.style.display = "block";
         error.style.color = "red";
         error.innerHTML += "<li>Completa el nombre</li>";
         e.preventDefault();
+    }
+
+    else if(!soloLetras.test(nombreLimpio)){
+        error.style.display = "block";
+        error.style.color = "red";
+        error.innerHTML += "<li>El nombre solo debe contener letras</li>";
+        e.preventDefault();
+    }
+
+    else {
+        // Separar por espacios
+        var partes = nombreLimpio.split(" ");
+
+        if(partes.length < 2){
+            error.style.display = "block";
+            error.style.color = "red";
+            error.innerHTML += "<li>Ingresa nombre y apellido</li>";
+            e.preventDefault();
+        }
     }
 }
 
